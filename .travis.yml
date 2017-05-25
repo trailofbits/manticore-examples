@@ -25,4 +25,4 @@ install:
 - travis_retry git clone https://github.com/trailofbits/manticore-examples.git
 - cd manticore-examples
 script:
-- ./test.sh
+- scripts/test.sh
