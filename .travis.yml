@@ -1,0 +1,25 @@
+branches:
+  only:
+  - master
+language: python
+cache:
+  pip: true
+  directories:
+  - $HOME/virtualenv/python2.7.12/lib/python2.7/site-packages
+  - $HOME/virtualenv/python2.7.12/bin/
+  - $HOME/unicorn
+dist: trusty
+sudo: required
+os:
+- linux
+python:
+- 2.7
+install:
+- travis_retry pip install -U pip
+- travis_retry pip uninstall -y Manticore || echo "Manticore not cached"  # uninstall any old, cached Manticore
+- travis_retry git clone https://github.com/trailofbits/manticore.git
+- cd manticore
+- travis_retry pip install --no-binary keystone-engine -e .[dev]  # ks can have pip install issues
+- scripts/travis_install_z3.sh
+script:
+- test.sh
