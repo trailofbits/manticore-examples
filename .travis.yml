@@ -22,5 +22,7 @@ install:
 - travis_retry pip install --no-binary keystone-engine -e .[dev]  # ks can have pip install issues
 - scripts/travis_install_z3.sh
 - cd ..
+- travis_retry git clone https://github.com/trailofbits/manticore-examples.git
+- cd manticore-examples
 script:
 - test.sh
