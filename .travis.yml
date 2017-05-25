@@ -15,14 +15,7 @@ os:
 python:
 - 2.7
 install:
-- travis_retry pip install -U pip
-- travis_retry pip uninstall -y Manticore || echo "Manticore not cached"  # uninstall any old, cached Manticore
-- travis_retry git clone https://github.com/trailofbits/manticore.git
-- cd manticore
-- travis_retry pip install --no-binary keystone-engine -e .[dev]  # ks can have pip install issues
+- pip install manticore
 - scripts/travis_install_z3.sh
-- cd ..
 script:
-- travis_retry git clone https://github.com/trailofbits/manticore-examples.git
-- cd manticore-examples
-- scripts/test.sh
+- scripts/travis_test.sh
