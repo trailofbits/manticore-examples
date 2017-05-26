@@ -7,7 +7,6 @@ cache:
   directories:
   - $HOME/virtualenv/python2.7.12/lib/python2.7/site-packages
   - $HOME/virtualenv/python2.7.12/bin/
-  - $HOME/unicorn
 dist: trusty
 sudo: required
 os:
