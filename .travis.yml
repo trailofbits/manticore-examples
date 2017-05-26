@@ -1,0 +1,20 @@
+branches:
+  only:
+  - master
+language: python
+cache:
+  pip: true
+  directories:
+  - $HOME/virtualenv/python2.7.12/lib/python2.7/site-packages
+  - $HOME/virtualenv/python2.7.12/bin/
+dist: trusty
+sudo: required
+os:
+- linux
+python:
+- 2.7
+install:
+- scripts/travis_install_mcore.sh
+- scripts/travis_install_z3.sh
+script:
+- scripts/travis_test.sh
