@@ -59,4 +59,6 @@ def hook(state):
     # We found the flag, no need to continue execution
     m.terminate()
 
+m.should_profile = True
 m.run(procs=10)
+print str(m._executor.dump_stats())
