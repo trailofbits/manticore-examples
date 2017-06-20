@@ -9,6 +9,7 @@ cache:
   - $HOME/virtualenv/python2.7.12/bin/
 dist: trusty
 sudo: required
+group: edge
 os:
 - linux
 python:
