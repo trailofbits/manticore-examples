@@ -3,6 +3,7 @@
 RV=0
 
 # Google 2016 Unbreakable
+cd google2016_unbreakable
 time python win.py | tee unbreakable.log
 RAN_OK=${PIPESTATUS[0]}
 grep -q "CTF{0The1Quick2Brown3Fox4Jumped5Over6The7Lazy8Fox9}" unbreakable.log
