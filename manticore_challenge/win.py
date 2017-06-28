@@ -66,4 +66,3 @@ m.verbosity = 0
 m.workers = 1
 m.should_profile = True
 m.run()
-print str(m._executor.dump_stats())

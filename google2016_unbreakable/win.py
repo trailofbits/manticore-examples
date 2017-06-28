@@ -61,4 +61,3 @@ def hook(state):
 
 m.should_profile = True
 m.run(procs=10)
-print str(m._executor.dump_stats())
