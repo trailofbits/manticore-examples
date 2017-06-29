@@ -33,18 +33,24 @@ cd ..
 
 # Exploit Generation Example
 cd exploit_generation_example
-python record.py ./bof AAAAAAAAAAAAAAAAAAAAAAA | tee exploit_gen_record.log
-if grep -q "call eax" exploit_gen_record.log
+# Pt. 1: record
+FAILED=0
+time python record.py ./bof AAAAAAAAAAAAAAAAAAAAAAA | tee exploit_gen_record.log || FAILED=1
+grep -q "call eax" exploit_gen_record.log || FAILED=1
+if [[ $FAILED -eq 0 ]]
 then
     echo "Exploit Generation record passed"
 else
     echo "Exploit Generation record  failed"
     RV=1
 fi
-python crash_analysis.py ./bof  -- AAAAAAAAAAAAAAAAAAAAAAA -- +++++++++++++++++++++++ | tee exploit_gen_analysis.log
-if grep -q "The solution is:" exploit_gen_analysis.log
+# Pt. 2: generate
+FAILED=0
+time python crash_analysis.py ./bof  -- AAAAAAAAAAAAAAAAAAAAAAA -- +++++++++++++++++++++++ | tee exploit_gen_analysis.log || FAILED=1
+grep -q "The solution is:" exploit_gen_analysis.log || FAILED=1
+if [[ $FAILED -eq 0 ]]
 then
-    echo "Exploit Generation analysis  passed"
+    echo "Exploit Generation analysis passed"
 else
     echo "Exploit Generation analysis failed"
     RV=1
