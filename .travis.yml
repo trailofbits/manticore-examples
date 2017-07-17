@@ -16,6 +16,5 @@ python:
 install:
 - scripts/travis_install_mcore.sh
 - scripts/travis_install_z3.sh
-- scripts/travis_install_r2.sh
 script:
 - scripts/travis_test.sh

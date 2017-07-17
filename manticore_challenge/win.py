@@ -1,5 +1,5 @@
 from manticore import Manticore
-import r2pipe # pip install r2pipe
+from subprocess import check_output
 import sys
 
 """
@@ -18,13 +18,15 @@ sys     0m2.340s
 addrs = []
 
 def get_exits():
-    """ Extract exit calls from each check function using r2 """
-    r2 = r2pipe.open('manticore_challenge')
-    r2.cmd('aaa')
-    exits_disasm = r2.cmd('pdf @@ sym.check*~exit')
-    exits = [int(line.split()[2], 16) for line in exits_disasm.split('\n')]
-    for exit in exits:
-        yield exit
+    """ Extract exit calls from each check function using objdump """
+    def addr(line):
+        """ Get just the address from a line of objdump output """
+        return int(line.split()[0][:-1], 16)
+
+    exits_disasm = check_output("objdump -d manticore_challenge | grep exit", shell=True)
+    exits = [addr(line) for line in exits_disasm.split('\n')[2:-1]]
+    for e in exits:
+        yield e
 
 m = Manticore('manticore_challenge')
 
