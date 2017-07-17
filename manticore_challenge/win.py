@@ -19,10 +19,14 @@ addrs = []
 
 def get_exits():
     """ Extract exit calls from each check function using objdump """
+    def addr(line):
+        """ Get just the address from a line of objdump output """
+        return int(line.split()[0][:-1], 16)
+
     exits_disasm = check_output("objdump -d manticore_challenge | grep exit", shell=True)
-    exits = [int(line.split()[0][:-1], 16) for line in exits_disasm.split('\n')[2:-1]]
-    for exit in exits:
-        yield exit
+    exits = [addr(line) for line in exits_disasm.split('\n')[2:-1]]
+    for e in exits:
+        yield e
 
 m = Manticore('manticore_challenge')
 
