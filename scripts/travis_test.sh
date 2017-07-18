@@ -57,5 +57,19 @@ else
 fi
 cd ..
 
+# AIS3 crackme
+cd ais3_crackme
+FAILED=0
+time python win.py | tee ais3.log || FAILED=1
+grep -q "ais3{I_tak3_g00d_n0t3s}" ais3.log || FAILED=1
+if [[ $FAILED -eq 0 ]]
+then
+    echo "AIS3 crackme passed"
+else
+    echo "AIS3 crackme failed"
+    RV=1
+fi
+cd ..
+
 
 exit ${RV}
