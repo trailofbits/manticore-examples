@@ -48,8 +48,7 @@ def hook(state):
 @m.hook(0x400981)
 def hook(state):
     """ Finish all the checks, solve for the solution """
-    buffer = state.cpu.read_bytes(buff_addr, 12)
-    res = ''.join(chr(state.solve_one(x)) for x in buffer)
+    res = ''.join(map(chr, state.solve_buffer(buff_addr, 12)))
     print(res) # =MANTICORE==
     state.abandon() # Be sure to abandon and not continue execution
 

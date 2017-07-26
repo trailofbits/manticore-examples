@@ -52,8 +52,7 @@ def hook(state):
     print("Hit the final state.. solving")
 
     state._solver._command = 'z3 -t:240000 -smt2 -in' # Hack around travis timeouts
-    buffer = state.cpu.read_bytes(input_addr, num_bytes)
-    res = ''.join(chr(state.solve_one(x)) for x in buffer)
+    res = ''.join(map(chr, state.solve_buffer(input_addr, num_bytes)))
     print(res) # CTF{0The1Quick2Brown3Fox4Jumped5Over6The7Lazy8Fox9}
 
     # We found the flag, no need to continue execution

@@ -46,8 +46,7 @@ def hook(state):
 @m.hook(0x400981)
 def hook(state):
     # print("Checking {:x}".format(buff_addr))
-    buffer = state.cpu.read_bytes(buff_addr, 12)
-    res = ''.join(chr(state.solve_one(x)) for x in buffer)
+    res = ''.join(map(chr, state.solve_buffer(buff_addr, 12)))
     print(res)
     state.abandon()
 
