@@ -27,7 +27,7 @@ def hook(state):
     state.constrain(solution[3] == ord('3'))
     state.constrain(solution[4] == ord('{'))
     buffer_addr=state.cpu.read_int(state.cpu.RAX)
-    state.context[1] = buffer_addr
+    m.context[1] = buffer_addr
     print ("buffer addr : %08x " %(buffer_addr))
     state.cpu.write_bytes(buffer_addr, solution)
 
@@ -39,7 +39,7 @@ def hook(state):
 @m.hook(0x400602)
 def hook(state):
     print("it is a win path")
-    buffer_addr = state.context[1]
+    buffer_addr = m.context[1]
     res = ''.join(map(chr, state.solve_buffer(buffer_addr,num_bytes)))
     print("flag is : %s"%(res))
     m.terminate()
