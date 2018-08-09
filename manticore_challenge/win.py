@@ -24,7 +24,7 @@ def get_exits():
         return int(line.split()[0][:-1], 16)
 
     exits_disasm = check_output("objdump -d manticore_challenge | grep exit", shell=True)
-    exits = [addr(line) for line in exits_disasm.split('\n')[2:-1]]
+    exits = [addr(line) for line in exits_disasm.decode().split('\n')[2:-1]]
     for e in exits:
         yield e
 
