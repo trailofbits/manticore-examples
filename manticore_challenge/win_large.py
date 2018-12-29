@@ -1,4 +1,4 @@
-from manticore import Manticore
+from manticore.native import Manticore
 import r2pipe # pip install r2pipe
 
 """

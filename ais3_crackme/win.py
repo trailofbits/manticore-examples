@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 --
 
-from manticore import Manticore
+from manticore.native import Manticore
 
 
 m = Manticore('ais3_crackme', ['a'*30])

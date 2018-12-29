@@ -1,7 +1,7 @@
-from manticore import Manticore
+from manticore.native import Manticore
 
 """
-Leverages Manticore to solve the Google 2016 challenge: 
+Leverages Manticore to solve the Google 2016 challenge:
 unbreakable-enterprise-product-activation
 
 Author: @ctfhacker
