@@ -4,7 +4,7 @@
 from manticore.native import Manticore
 
 m = Manticore('./lab1B')
-m.verbosity = 1
+m.verbosity(1)
 m.context['counter'] = 0x1337d00d - 1
 
 
