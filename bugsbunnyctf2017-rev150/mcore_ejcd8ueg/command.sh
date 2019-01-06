@@ -1,1 +1,0 @@
-manticorerev150solve.py ./rev150 0
