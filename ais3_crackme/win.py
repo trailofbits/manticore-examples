@@ -44,7 +44,7 @@ def hook(state):
 def hook(state):
     print("it is a win path")
     buffer_addr = m.context[1]
-    res = ''.join(map(chr, state.solve_buffer(buffer_addr,num_bytes)))
+    res = ''.join(map(chr, state.solve_buffer(buffer_addr, num_bytes)))
     print("flag is : " + res)
     m.terminate()
 
