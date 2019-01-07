@@ -28,7 +28,7 @@ def hook(state):
     state.constrain(solution[4] == ord('{'))
     buffer_addr=state.cpu.read_int(state.cpu.RAX)
     m.context[1] = buffer_addr
-    print ("buffer addr : {:08x}".format(buffer_addr))
+    print(f"buffer addr : {buffer_addr:08x}")
     state.cpu.write_bytes(buffer_addr, solution)
 
 @m.hook(0x40060e)
