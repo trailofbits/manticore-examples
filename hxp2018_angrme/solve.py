@@ -6,7 +6,7 @@ from manticore.native import Manticore
 m = Manticore('./angrme')
 
 max_length = 40  # maximum flag length (rough guess-timate)
-m.verbosity = 1
+m.verbosity(1)
 
 
 @m.hook(0x555555555187)
