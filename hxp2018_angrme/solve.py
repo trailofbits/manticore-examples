@@ -2,6 +2,7 @@
 # -*- coding: utf-8 --
 
 from manticore.native import Manticore
+from manticore.core.smtlib import operators
 
 m = Manticore('./angrme')
 
@@ -24,10 +25,10 @@ def inject_symbolic_input(state):
         state.constrain(solution[2] == ord('p'))
         state.constrain(solution[3] == ord('{'))
 
-        # constrain characters to be valid ascii
+        # constrain characters to be printable ASCII or null byte
         for i in range(max_length):
-            state.constrain(solution[i] >= 0)
-            state.constrain(solution[i] <= ord('}'))
+            state.constrain(operators.OR(solution[i] == 0,
+                                         operators.AND(ord(' ') <= solution[i], solution[i] <= ord('}'))))
 
         address = state.cpu.RSP + 0x30
         context['input_address'] = address
