@@ -17,6 +17,7 @@ sys     0m2.340s
 
 addrs = []
 
+
 def get_exits():
     """ Extract exit calls from each check function using objdump """
     def addr(line):
@@ -28,14 +29,17 @@ def get_exits():
     for e in exits:
         yield e
 
+
 m = Manticore('manticore_challenge')
 
 buff_addr = None
+
 
 @m.hook(0x4009a4)
 def hook(state):
     """ Jump over `puts` and `fgets` calls """
     state.cpu.EIP = 0x4009c1
+
 
 @m.hook(0x4009c8)
 def hook(state):
@@ -45,12 +49,14 @@ def hook(state):
     buffer = state.new_symbolic_buffer(12)
     state.cpu.write_bytes(buff_addr, buffer)
 
+
 @m.hook(0x400981)
 def hook(state):
     """ Finish all the checks, solve for the solution """
     res = ''.join(map(chr, state.solve_buffer(buff_addr, 12)))
-    print(res) # =MANTICORE==
-    state.abandon() # Be sure to abandon and not continue execution
+    print(res)  # =MANTICORE==
+    state.abandon()  # Be sure to abandon and not continue execution
+
 
 def exit_hook(state):
     """ Abandon hook for each exit call """

@@ -16,6 +16,7 @@ These values can be found at 0x4005b8
 input_addr = 0x6042c0
 num_bytes = 0x43
 
+
 # Entry point
 @m.hook(0x400729)
 def hook(state):
@@ -39,6 +40,7 @@ def hook(state):
     # the hooked strncpy and execute the next instruction
     state.cpu.EIP = 0x4005bd
 
+
 # Failure case
 @m.hook(0x400850)
 def hook(state):
@@ -46,17 +48,20 @@ def hook(state):
     print("Invalid path.. abandoning")
     state.abandon()
 
+
 # Success case
 @m.hook(0x400724)
 def hook(state):
     print("Hit the final state.. solving")
 
+    # TODO update to use "proper" solver
     state._solver._command = 'z3 -t:240000 -smt2 -in' # Hack around travis timeouts
     res = ''.join(map(chr, state.solve_buffer(input_addr, num_bytes)))
     print(res) # CTF{0The1Quick2Brown3Fox4Jumped5Over6The7Lazy8Fox9}
 
     # We found the flag, no need to continue execution
     m.terminate()
+
 
 m.should_profile = True
 m.run(procs=10)

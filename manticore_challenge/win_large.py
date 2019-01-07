@@ -12,7 +12,7 @@ addrs = []
 
 r2 = r2pipe.open('manticore_challenge')
 r2.cmd('aaa')
-for x in xrange(11):
+for x in range(11):
     dis = r2.cmd('pdf @ sym.check_char_{}'.format(x))
     entry = int(dis.split('\n')[4].split()[1], 16)
     for line in dis.split('\n'):
@@ -28,10 +28,12 @@ m = Manticore('manticore_challenge')
 
 buff_addr = None
 
+
 @m.hook(0x4009a4)
 def hook(state):
     """ Jump over `puts` and `fgets` calls """
     state.cpu.EIP = 0x4009c1
+
 
 @m.hook(0x4009c8)
 def hook(state):
@@ -68,9 +70,11 @@ def je_hook(state):
     state.cpu.BL = res
 """
 
+
 def exit_hook(state):
     # print("EXIT HOOK: Here: {}".format(hex(state.cpu.EIP)))
     state.abandon()
+
 
 for index, items in enumerate(addrs):
     entry, je_statement, exit_call = items

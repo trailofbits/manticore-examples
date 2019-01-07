@@ -1,4 +1,5 @@
 from manticore.native import Manticore
+import binascii
 
 m = Manticore('filechecker')
 with m.locked_context() as context:
@@ -12,6 +13,7 @@ def skip_file_check(state):
     state.cpu.PC = 0x4006ca
 
 
+# TODO constrain flag format to (hopefully) fix null byte flag issue
 @m.hook(0x400709)
 def use_symbolic_password(state):
     with m.locked_context() as context:
@@ -49,6 +51,8 @@ def success(state):
             ans += chr(state.solve_one(char))
 
     print(ans)
+    ans_bytes = ans.encode('utf-8')
+    print(binascii.hexlify(ans_bytes))
     m.terminate()
 
 
