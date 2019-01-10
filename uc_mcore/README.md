@@ -1,5 +1,8 @@
-# Under-constrained Symbolic Execution with Manticore
+# Cryptographic Verification with Manticore
 
 ```
-$ python uc_mcore.py -b uc_mcore -s crypto_scalarmult_curve25519_tweet_base -m example_model
+$ make prepare
+$ make
+
+# generates target binary and shared object
 ```
