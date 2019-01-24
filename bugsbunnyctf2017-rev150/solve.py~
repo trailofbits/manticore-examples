@@ -30,9 +30,8 @@ def inject_password(state):
     binary. The password is formatted to be 20 digits long.
     """
     with m.locked_context() as context:
-        formatted_pwd = f"{context['password']:020}"
-        print(f"[+] injecting password: {formatted_pwd}")
-        state.cpu.write_bytes(state.cpu.RDI,formatted_pwd)
+        print("[+] injecting password: " + str(format(context['password'], '020')))
+        state.cpu.write_bytes(state.cpu.RDI,str(format(context['password'],'020')))
         
 @m.hook(0x401e5a)
 def failed(state):
@@ -41,7 +40,7 @@ def failed(state):
     return to the original point of injection.
     """
     with m.locked_context() as context:
-        if len(str(context['password'])) == 20:
+        if (len(str(context['password'])) == 20):
             context['password'] += 1000000000000
             state.cpu.RIP = 0x401be2
             print("[-] incorrect password")
@@ -55,7 +54,7 @@ def success(state):
     If our password passes all of the checks, we can return it as the flag.
     """
     with m.locked_context() as context:
-        print(f"[+] success. flag: BugsBunny{{context['password']}}")
+        print("[+] success. flag: BugsBunny{" + str(context['password']) + "}")
         m.terminate()
         
 m.verbosity(1)
