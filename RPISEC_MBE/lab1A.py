@@ -3,7 +3,7 @@
 
 from manticore.native import Manticore
 
-m = Manticore('./lab1A')
+m = Manticore("./lab1A")
 
 m.verbosity(1)
 
@@ -18,14 +18,14 @@ def inject_user_name(state):
     data manually
     """
     with m.locked_context() as context:
-        user_name = 'test123'
-        serial_placeholder = 0xdeadbeef  # arbitrary placeholder number
+        user_name = "test123"
+        serial_placeholder = 0xDEADBEEF  # arbitrary placeholder number
 
         # inject variables
-        username_address = state.cpu.ESP + 0x1c
+        username_address = state.cpu.ESP + 0x1C
         serial_address = state.cpu.ESP + 0x18
-        context['username_address'] = username_address
-        context['username'] = user_name
+        context["username_address"] = username_address
+        context["username"] = user_name
         print("[+] injecting symbolic username: 0x" + hex(username_address))
         print("[+] injecting placeholder serial: 0x" + hex(serial_address))
         state.cpu.write_bytes(username_address, user_name)
@@ -40,9 +40,9 @@ def grab_serial(state):
     update our serial number in memory to match.
     """
     with m.locked_context() as context:
-        print('[+] recovering serial')
-        context['serial'] = state.cpu.read_int(state.cpu.EBP - 0x10)
-        state.cpu.EAX = context['serial']
+        print("[+] recovering serial")
+        context["serial"] = state.cpu.read_int(state.cpu.EBP - 0x10)
+        state.cpu.EAX = context["serial"]
 
 
 @m.hook(0x8048A23)
@@ -51,7 +51,7 @@ def skip_strcspn(state):
     strcspn is used to locate the newline character in our input. Because we're
     manually injecting our input, there will be no newline.
     """
-    print('[+] skipping call to strcspn')
+    print("[+] skipping call to strcspn")
     state.cpu.EIP = 0x8048A3E
 
 
@@ -63,8 +63,8 @@ def success(state):
     """
     with m.locked_context() as context:
         print("[+] found success path")
-        print("[+] username: " + context['username'])
-        print("[+] serial #: {}".format(context['serial']))
+        print("[+] username: " + context["username"])
+        print("[+] serial #: {}".format(context["serial"]))
         m.terminate()
 
 

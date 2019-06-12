@@ -8,12 +8,12 @@ Author: @ctfhacker
 Binary: https://github.com/ctfs/write-ups-2016/blob/master/google-ctf-2016/reverse/unbreakable-enterprise-product-activation-150/unbreakable-enterprise-product-activation.bz2
 """
 
-m = Manticore('unbreakable')
+m = Manticore("unbreakable")
 
 """
 These values can be found at 0x4005b8
 """
-input_addr = 0x6042c0
+input_addr = 0x6042C0
 num_bytes = 0x43
 
 # Entry point
@@ -27,17 +27,18 @@ def hook(state):
 
     # We are given in the challenge that the flag begins with CTF{
     # So we can apply constraints to ensure that is true
-    state.constrain(buffer[0] == ord('C'))
-    state.constrain(buffer[1] == ord('T'))
-    state.constrain(buffer[2] == ord('F'))
-    state.constrain(buffer[3] == ord('{'))
+    state.constrain(buffer[0] == ord("C"))
+    state.constrain(buffer[1] == ord("T"))
+    state.constrain(buffer[2] == ord("F"))
+    state.constrain(buffer[3] == ord("{"))
 
     # Store our symbolic input in the global buffer read by the check
     state.cpu.write_bytes(input_addr, buffer)
 
     # By default, `hook` doesn't patch the instruction, so we hop over
     # the hooked strncpy and execute the next instruction
-    state.cpu.EIP = 0x4005bd
+    state.cpu.EIP = 0x4005BD
+
 
 # Failure case
 @m.hook(0x400850)
@@ -46,17 +47,19 @@ def hook(state):
     print("Invalid path.. abandoning")
     state.abandon()
 
+
 # Success case
 @m.hook(0x400724)
 def hook(state):
     print("Hit the final state.. solving")
 
-    state._solver._command = 'z3 -t:240000 -smt2 -in' # Hack around travis timeouts
-    res = ''.join(map(chr, state.solve_buffer(input_addr, num_bytes)))
-    print(res) # CTF{0The1Quick2Brown3Fox4Jumped5Over6The7Lazy8Fox9}
+    state._solver._command = "z3 -t:240000 -smt2 -in"  # Hack around travis timeouts
+    res = "".join(map(chr, state.solve_buffer(input_addr, num_bytes)))
+    print(res)  # CTF{0The1Quick2Brown3Fox4Jumped5Over6The7Lazy8Fox9}
 
     # We found the flag, no need to continue execution
     m.terminate()
+
 
 m.should_profile = True
 m.run(procs=10)
