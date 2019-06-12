@@ -9,7 +9,7 @@ python:
 - 3.6
 
 install:
-  - pip install manticore.[native]
+  - pip install manticore[native]
   - pip install nose
 
 script:
