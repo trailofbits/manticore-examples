@@ -12,7 +12,7 @@ install:
   - pip install manticore[native]
   - pip install nose
   - pip install r2pipe
-  - apt install radare2
+  - sudo apt install radare2
 
 script:
   - nosetests
