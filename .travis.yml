@@ -8,6 +8,10 @@ os:
 python:
 - 3.6
 
+addons:
+  apt:
+    update: true
+
 install:
   - pip install manticore[native]
   - pip install nose
