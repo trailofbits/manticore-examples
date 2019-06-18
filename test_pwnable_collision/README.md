@@ -16,7 +16,7 @@ the flag. Through symbolic execution, we can have various edge cases that causes
 so in order to combat unreadable characters, we can constrain the result to include only valid ASCII characters.
 
 ```
-$ python win.py
+$ python test.py
 ...
 EDGE CASE: b'\xf5\x15^\x80\xfc?\x01\xd7@\xe1{C@\xfd\xfeB{\xd5\x02D'
 

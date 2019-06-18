@@ -3,7 +3,7 @@
 
 from manticore.native import Manticore
 
-m = Manticore('./lab1B')
+m = Manticore("./lab1B")
 m.verbosity(1)
 
 """
@@ -19,7 +19,7 @@ switch(0x1337d00d - input):
 
 by setting our input to 0x1337d00d - 1, we ensure we will hit the first case
 """
-m.context['password'] = 0x1337d00d - 1
+m.context["password"] = 0x1337D00D - 1
 
 
 @m.hook(0x8048A55)
@@ -32,7 +32,7 @@ def bad_password(state):
     with m.locked_context() as context:
         print("[-] abandoning path (invalid password)")
 
-        context['password'] -= 1
+        context["password"] -= 1
         state.cpu.EIP = 0x8048BF6
 
 
@@ -44,7 +44,7 @@ def success(state):
     """
     with m.locked_context() as context:
         print("[+] found success path")
-        print("[+] password: {}".format(context['password']))
+        print("[+] password: {}".format(context["password"]))
         m.terminate()
 
 
@@ -60,8 +60,8 @@ def inject_data(state):
         # skip ahead several instructions to jump over puts/fgets/scanf
         state.cpu.EIP = 0x8048C52
 
-        print("[+] injecting " + hex(context['password']))
-        state.cpu.EAX = context['password']
+        print("[+] injecting " + hex(context["password"]))
+        state.cpu.EAX = context["password"]
 
 
 m.run(procs=10)

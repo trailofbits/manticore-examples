@@ -1,23 +1,20 @@
-branches:
-  only:
-  - master
 language: python
-cache:
-  pip: true
-  directories:
-  - $HOME/virtualenv/python2.7.12/lib/python2.7/site-packages
-  - $HOME/virtualenv/python2.7.12/bin/
-dist: trusty
+cache: pip
+
+dist: xenial
 sudo: required
 os:
 - linux
 python:
-- 2.7
+- 3.6
+
 install:
-- scripts/travis_install_mcore.sh
-- scripts/travis_install_z3.sh
+  - pip install manticore[native]
+  - pip install nose
+
 script:
-- scripts/travis_test.sh
+  - nosetests
+
 notifications:
   slack:
     secure: YpZwo21g+awv12w6doypnvcM/BhWC9rx0HeVNBHn5Q1qSWuwRNXb4e4+md2Hch9MeYMvg3dBU1CGui1VxihFpp7pRDsXCiXkHZ7Gom/GxIr205/5YZEgL+mA6SFgblswKY1ulPH6ZqhCF4Cq9rZsWOkXoqu/lDuomIiPYuh3Neyg3kSSFtInhgrasU+NeaQpa3H72fsH3KUfpVlu+3wR9JrAF7I+3UgzvdPkD1cP8kORAZ6JlMTNo2ixqcZi3VxlT3Z+KRkM8K7AW3joDVMjAmYuRJNvAQGldYQF/kkrlPaL2dZaNi0HMn9V48P+WteQcyC4syfU8Foncs1hLE0kU8tPu8nyBYSfnYopp+IiuVP0eNdNuu/vGf4PDeQpGyh7GTBgJ4UJ+drOKlVfojr4lmkTX1FthtCr6ZRp7BLCvaWlWelTG0HW0CeX6+ifnAPB4dXa1WE9UdXdDtawz2YLmb4KXUe7izWToYSJWnFWTBRnGUDzYsyDcKIoHh6RX2/lk9hmfIu2v6GnXIot57NjkYeSm/TU2SV2j1e0VXzmisL/b4JzFx/F0S+eNltX3pO+qdQOZCJ7yalYdC57H+S8YvO0o3YdjZVCWPV+CcJs+B7nONHpNRhQLY6Fqs4GSCVVpI4Bk8K1WI9Xx6b479Su2PzsYJD8hUsghA6FXG7lReo=
