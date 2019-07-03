@@ -41,9 +41,8 @@ def test():
 
         # apply constraint for only ASCII characters
         for i in range(20):
-            initial_state.constrain(
-                operators.AND(ord(" ") <= argv1[i], argv1[i] <= ord("}"))
-            )
+            initial_state.constrain(ord(" ") <= argv1[i])
+            initial_state.constrain(argv1[i] <= ord("}"))
 
         # store argv1 in global state
         with m.locked_context() as context:
