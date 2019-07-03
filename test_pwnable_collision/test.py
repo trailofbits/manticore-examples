@@ -15,7 +15,6 @@ def test():
 
     """
     from manticore.native import Manticore
-    from manticore.core.smtlib import operators
 
     # initialize Manticore object with symbolic input in
     # argv[1]. We can eventually solve for this through
@@ -54,6 +53,7 @@ def test():
         print("Fail state! Abandoning.")
         state.abandon()
 
+    # add all fail states in the list
     for addr in [0x400C2F, 0x400BE7, 0x400BAC]:
         m.add_hook(addr, fail_state)
 
@@ -80,10 +80,9 @@ def test():
         check_output([file, m.context["solution"]], stderr=subprocess.STDOUT)
     ):
         solved = True
-    # print("aaaaaa")
-    # print(check_output([file, m.context["solution"]]))
-    # print("bbbbb")
-    # print(type(check_output([file, m.context["solution"]])))
+    # save all states to mcore_ file
+    m.finalize()
+
     assert solved
 
 
