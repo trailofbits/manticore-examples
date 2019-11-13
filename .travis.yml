@@ -1,23 +1,16 @@
 language: python
 cache: pip
-
 dist: xenial
 sudo: required
 os:
 - linux
 python:
 - 3.6
-
 install:
-  - pip install manticore[native]
-  - pip install nose
-
+- pip install manticore[native]
+- pip install nose
 script:
-  - nosetests
-
+- nosetests
 notifications:
   slack:
-    secure: YpZwo21g+awv12w6doypnvcM/BhWC9rx0HeVNBHn5Q1qSWuwRNXb4e4+md2Hch9MeYMvg3dBU1CGui1VxihFpp7pRDsXCiXkHZ7Gom/GxIr205/5YZEgL+mA6SFgblswKY1ulPH6ZqhCF4Cq9rZsWOkXoqu/lDuomIiPYuh3Neyg3kSSFtInhgrasU+NeaQpa3H72fsH3KUfpVlu+3wR9JrAF7I+3UgzvdPkD1cP8kORAZ6JlMTNo2ixqcZi3VxlT3Z+KRkM8K7AW3joDVMjAmYuRJNvAQGldYQF/kkrlPaL2dZaNi0HMn9V48P+WteQcyC4syfU8Foncs1hLE0kU8tPu8nyBYSfnYopp+IiuVP0eNdNuu/vGf4PDeQpGyh7GTBgJ4UJ+drOKlVfojr4lmkTX1FthtCr6ZRp7BLCvaWlWelTG0HW0CeX6+ifnAPB4dXa1WE9UdXdDtawz2YLmb4KXUe7izWToYSJWnFWTBRnGUDzYsyDcKIoHh6RX2/lk9hmfIu2v6GnXIot57NjkYeSm/TU2SV2j1e0VXzmisL/b4JzFx/F0S+eNltX3pO+qdQOZCJ7yalYdC57H+S8YvO0o3YdjZVCWPV+CcJs+B7nONHpNRhQLY6Fqs4GSCVVpI4Bk8K1WI9Xx6b479Su2PzsYJD8hUsghA6FXG7lReo=
-    on_success: change
-    on_failure: always
-    on_pull_requests: false
+    secure: IgNNg1xxbnGcum9aFwg2N1WbQkSp0lbkZMDg0xM5NUiOVjGRWPw8JpsjW4hOgi831wHEhtthwpQeSE4htfuuXAJ4XcOIoN/SGsYCK3wvFrwADJtbVXv7GoHmTuvkBnU9r2CthplMKkkZFaPGG2OL2S+JivD9KgGL0MUhz+q/tw11SaNrvlLj2ZwqFNlvoI7bXp3zm06yE/bNGtBLHmTqzj9eT4s5e/RB4QmnfHmf3a4cbXDRT20ki9rikUDIIz9kAZ1zdqbaJbv6AoawtSfkBVYUcJ7A7NeBRSrWR3n4s7SYWEo9FqC6dPJf4kEQuHeGkSZCkZpIbL+qEjmfiGV5+XNGjh2bqQSELh+3/okjHibWAF+y07PpvUGGOxeMIC+IS2kILv//cF3/bqIrPsEecZ1LK74stlw2w7Zshkm1hfswY/afs52yRrA0ZUt9FGf5VcVYbKs9VxkQgNIS8TrAHPBOPnAWkkQzYmhgfK9Y+fIWq29K5xbPJzXWtoetQU8boAd4fYNo38G8mqps7fVZhMznRipWY5Eu6ozktkvStH2obJ9/5tTx7Abs3dsFSkcbM7DQXF5zbnCm6ycjV14r1JMCe5AUkHbkukuUzO7lSL2oiXcfnnb4co/kWFv4WTfgv5FPbxDqpPT8tlnPOniS/EApl/SfcGGgt8I5hNVge40=
