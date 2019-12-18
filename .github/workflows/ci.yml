@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+  schedule:
+    # run CI every day even if no PRs/merges occur
+    - cron:  '0 12 * * *'
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        manticore: ["master", "pypi"]
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Python 3.6
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.6
+    - name: Install Dependencies
+      env:
+        MANTICORE: ${{ matrix.manticore }}
+      run: |
+        if [[ "$MANTICORE" == "pypi" ]]; then
+          pip install manticore[native]
+        else
+          pip install "git+https://github.com/trailofbits/manticore.git@${MANTICORE}#egg=manticore[native]"
+        fi
+        pip install nose
+    - name: Run Tests
+      continue-on-error: ${{ matrix.manticore == 'master' }}
+      run: |
+        nosetests
