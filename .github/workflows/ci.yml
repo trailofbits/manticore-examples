@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        manticore: ["master", "pypi", "ek/fix-regression"]
+        manticore: ["master", "pypi"]
     steps:
     - uses: actions/checkout@v1
     - name: Set up Python 3.6
@@ -32,6 +32,6 @@ jobs:
         fi
         pip install nose
     - name: Run Tests
-      continue-on-error: ${{ matrix.manticore != 'ek/fix-regression' }}
+      continue-on-error: ${{ matrix.manticore == 'master' }}
       run: |
         nosetests
