@@ -7,7 +7,7 @@ os:
 python:
 - 3.6
 install:
-- pip install git+https://github.com/trailofbits/manticore.git@4dec4083a9ece011c34b4b294016abc2af57f530#egg=manticore[native]
+- pip install manticore[native]
 - pip install nose
 script:
 - nosetests
