@@ -75,9 +75,15 @@ def test():
     for state in m.ready_states:
         world = state.platform
         result = state.solve_one(symbolic_data)
+        print(result)
         print("[+] FOUND: {}".format(binascii.hexlify(result)))
-        with m.locked_context() as context:
-            context["solved"] = True
+        if (
+            result
+            == b"\xce\xce\xce\xce\xce\xce\xce\xce\xce\xce\xce\xce\xce\xce\xce\xce\xce\xce\xce\xce\xce\xce\xce\xce\xce\xce\xce\xce\xce\xce\xce\xcerEDS\x01ZJ_\x16[SX(#\xce\xceh\xe0\x9e:%\xc6\xbc,@\xfb\x81T\xb48\xf6\xb6"
+        ):
+            print("A" * 80)
+            with m.locked_context() as context:
+                context["solved"] = True
         break
     assert m.context["solved"]
 
