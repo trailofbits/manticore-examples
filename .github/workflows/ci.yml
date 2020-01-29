@@ -31,7 +31,7 @@ jobs:
         else
           pip install "git+https://github.com/trailofbits/manticore.git@${MANTICORE}#egg=manticore[native]"
         fi
-        pip install pytest
+        pip install pytest pytest-xdist
     - name: Run Tests
       continue-on-error: ${{ matrix.manticore == 'master' }}
       run: |
