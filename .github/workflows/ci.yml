@@ -13,6 +13,7 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         manticore: ["master", "pypi"]
     steps:
@@ -30,8 +31,8 @@ jobs:
         else
           pip install "git+https://github.com/trailofbits/manticore.git@${MANTICORE}#egg=manticore[native]"
         fi
-        pip install nose
+        pip install pytest
     - name: Run Tests
       continue-on-error: ${{ matrix.manticore == 'master' }}
       run: |
-        nosetests
+        pytest -n auto
