@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        manticore: ["master", "pypi"]
+        manticore: ["master", "pypi", "dev-sha3-new"]
     steps:
     - uses: actions/checkout@v1
     - name: Set up Python 3.6
