@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        manticore: ["master", "pypi"]
+        manticore: ["master", "pypi", "devcapitate-smtlib"]
     steps:
     - uses: actions/checkout@v1
     - name: Set up Python 3.6
